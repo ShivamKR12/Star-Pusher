@@ -87,3 +87,30 @@ jobs:
             artifacts/starpusher-Windows/starpusher-windows.zip
             artifacts/starpusher-Linux/starpusher-linux.tar.gz
             artifacts/starpusher-macOS/starpusher-macos.zip
+
+      - name: Setup Butler
+        uses: remarkablegames/setup-butler@v1
+
+      - name: Publish Windows to itch.io via Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          mkdir -p push_win
+          cp artifacts/starpusher-Windows/starpusher-windows.zip push_win/
+          butler push push_win shivamkr12/star-pusher:windows --userversion v1.0.${{ github.run_number }}
+
+      - name: Publish Linux to itch.io via Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          mkdir -p push_linux
+          cp artifacts/starpusher-Linux/starpusher-linux.tar.gz push_linux/
+          butler push push_linux shivamkr12/star-pusher:linux --userversion v1.0.${{ github.run_number }}
+
+      - name: Publish macOS to itch.io via Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          mkdir -p push_mac
+          cp artifacts/starpusher-macOS/starpusher-macos.zip push_mac/
+          butler push push_mac shivamkr12/star-pusher:mac --userversion v1.0.${{ github.run_number }}
