@@ -59,7 +59,9 @@ def main():
     global FPSCLOCK, DISPLAYSURF, IMAGESDICT, TILEMAPPING, OUTSIDEDECOMAPPING, BASICFONT, PLAYERIMAGES, currentImage
 
     # Pygame initialization and basic set up of the global variables.
+    pygame.mixer.pre_init(44100, -16, 2, 1024)
     pygame.init()
+    pygame.mixer.set_num_channels(64)
     FPSCLOCK = pygame.time.Clock()
 
     # Because the Surface object stored in DISPLAYSURF was returned
